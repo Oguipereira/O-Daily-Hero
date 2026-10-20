@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="icon" href="img/icone-rotina.svg">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<link rel="icon" href="img/icone-rotina.svg" type="image/svg+xml">
 <title>Daily Hero</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Daily Hero: jogos curtos com estímulos planejados para crianças autistas. Cada resposta vira um dado que o profissional acompanha entre as sessões.">
@@ -12,184 +11,199 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&display=swap">
 <style>
-/* Layout: capítulos em faixas de largura total; o celular é o fio condutor (hero → história fixa → painel do profissional). */
+/* Layout: faixas alternadas (degradê azul da marca ↔ branco); o anel do logo aparece ao fundo; o celular conduz a história. */
 :root {
-  --creme: #F6F4EF; --papel: #FFFFFF; --tinta: #15142B; --tinta-2: #2E2C4A;
-  --roxo: #4B4FE0; --roxo-escuro: #3A3EC8; --lima: #C8E88A; --lilas: #B9B6D6;
-  --cinza: #615F7A; --cinza-claro: #8C8A9E; --linha: #E2DED3; --bloco: #EFEDE6;
+  --branco: #FFFFFF; --nevoa: #F2F4FF; --tinta: #14123A; --tinta-2: #23205E;
+  --azul: #3B47E0; --azul-escuro: #2A33B8; --lima: #C8E88A; --sol: #FFD24A;
+  --cinza: #57557A; --cinza-claro: #8A88A6; --linha: #E1E4F4; --bloco: #E9ECFA;
+  --sobre-azul: #DCDFFF;
+  --grad: linear-gradient(150deg, #2230C4 0%, #3E4AE2 42%, #6D55EA 100%);
   --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
   --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
   --texto: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --raio: 28px; --max: 1240px;
-  --ease: cubic-bezier(.2,.7,.1,1);
+  --raio: 24px; --max: 1240px; --ease: cubic-bezier(.2,.7,.1,1);
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: auto; }
-body { background: var(--creme); color: var(--tinta); font-family: var(--texto); font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { background: var(--branco); color: var(--tinta); font-family: var(--texto); font-size: 18px; line-height: 1.55; -webkit-font-smoothing: antialiased; margin: 0; }
 img { max-width: 100%; display: block; }
-main > section { overflow-x: clip; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid var(--roxo); outline-offset: 3px; border-radius: 8px; }
+main > section { position: relative; overflow-x: clip; isolation: isolate; }
+:focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; border-radius: 8px; }
 .faixa { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.miolo { max-width: var(--max); margin: 0 auto; }
-.rotulo { font-family: var(--texto); font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--roxo); }
-.titulo { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: .95; text-wrap: balance; margin: 0; }
-.serifa { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.miolo { max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
+.azul { background: var(--grad); color: #fff; }
+.escura { background: var(--tinta); color: #fff; }
+.clara { background: var(--nevoa); }
+.rotulo { font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--azul); }
+.azul .rotulo, .escura .rotulo { color: var(--sol); }
+.titulo { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: .96; text-wrap: balance; margin: 0; }
+.destaque { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--tinta); background: linear-gradient(transparent 58%, var(--lima) 58%, var(--lima) 92%, transparent 92%); padding: 0 .08em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.azul .destaque, .escura .destaque { color: var(--sol); background: none; padding: 0; }
 .corpo { color: var(--cinza); max-width: 34em; margin: 0; }
-.botao { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 17px 28px; font: 600 17px/1 var(--texto); text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: transform .3s var(--ease), background .3s; }
+.azul .corpo, .escura .corpo { color: var(--sobre-azul); }
+.botao { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 17px 28px; font: 600 17px/1 var(--texto); text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: transform .3s var(--ease), background .3s, color .3s; }
 .botao:hover { transform: translateY(-2px); }
-.botao.primario { background: var(--roxo); color: #fff; }
-.botao.primario:hover { background: var(--roxo-escuro); }
-.botao.contorno { border-color: #CFCBBE; color: var(--tinta); background: transparent; }
-.botao.lima { background: var(--lima); color: var(--tinta); }
-.botao.escuro { background: var(--tinta); color: #fff; }
+.botao.branco { background: #fff; color: var(--tinta); }
+.botao.contorno-claro { border-color: rgba(255,255,255,.5); color: #fff; }
+.botao.contorno-claro:hover { border-color: #fff; }
+.botao.tinta { background: var(--tinta); color: #fff; }
+.seta { display: inline-block; transition: transform .3s var(--ease); }
+.botao:hover .seta { transform: translateX(4px); }
 
-/* ---------- menu ---------- */
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--creme); }
-.menu { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; transition: background .4s, box-shadow .4s; }
-.menu.rolou { background: rgba(246,244,239,.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--linha); }
+.marca-dagua { position: absolute; z-index: 0; width: min(980px, 120vw); aspect-ratio: 1; pointer-events: none; color: #fff; opacity: .08; }
+.marca-dagua svg { width: 100%; height: 100%; }
+.marca-dagua.escuro { color: var(--azul); opacity: .05; }
+
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: #2230C4; }
+.menu { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top, 0px); z-index: 50; color: #fff; transition: background .4s, color .4s, box-shadow .4s; }
+.menu.rolou { background: rgba(255,255,255,.9); color: var(--tinta); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--linha); }
 .menu .miolo { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 18px; }
 .marca { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font: 800 24px/1 var(--display); letter-spacing: -0.04em; }
 .marca svg { width: 38px; height: 38px; }
 .menu nav { display: flex; gap: 34px; font-weight: 500; font-size: 16px; }
-.menu nav a { text-decoration: none; opacity: .8; }
+.menu nav a { text-decoration: none; opacity: .82; }
 .menu nav a:hover { opacity: 1; }
-.menu .botao { padding: 13px 22px; font-size: 15px; }
+.menu .botao { padding: 13px 22px; font-size: 15px; background: #fff; color: var(--tinta); }
+.menu.rolou .botao { background: var(--tinta); color: #fff; }
 
-/* ---------- celular ---------- */
-.fone { position: relative; width: min(340px, 78vw); aspect-ratio: 414 / 868; border-radius: 15% / 7.2%; background: #121126; padding: 2.9%; box-shadow: 0 50px 110px -20px rgba(40,30,120,.38), inset 0 0 0 2px #2c2a4a; will-change: transform; }
+.fone { position: relative; width: min(340px, 78vw); aspect-ratio: 414 / 868; border-radius: 15% / 7.2%; background: #0E0C2B; padding: 2.9%; box-shadow: 0 60px 120px -30px rgba(10,8,60,.55), inset 0 0 0 2px #2c2a4a; will-change: transform; }
 .fone .tela { position: relative; width: 100%; height: 100%; border-radius: 12.5% / 5.9%; overflow: hidden; background: #F5F5FC; }
 .fone .tela img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .7s var(--ease), transform .9s var(--ease); }
-.fone .ilha { position: absolute; left: 50%; top: 3.6%; width: 31%; height: 4.2%; transform: translateX(-50%); border-radius: 99px; background: #0b0a18; z-index: 2; }
-.selo { position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: var(--papel); font: 600 15px/1 var(--texto); box-shadow: 0 14px 34px -10px rgba(40,30,120,.25); white-space: nowrap; }
-.selo.lima { background: var(--lima); }
+.fone .ilha { position: absolute; left: 50%; top: 3.6%; width: 31%; height: 4.2%; transform: translateX(-50%); border-radius: 99px; background: #08071c; z-index: 2; }
+.selo { position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 14px; background: #fff; color: var(--tinta); font: 600 15px/1.1 var(--texto); box-shadow: 0 18px 40px -14px rgba(10,8,60,.4); white-space: nowrap; }
+.selo b { font: 800 20px/1 var(--display); letter-spacing: -0.03em; }
+.selo .ponto { width: 10px; height: 10px; border-radius: 50%; background: var(--lima); flex: none; }
+.selo .ponto.sol { background: var(--sol); } .selo .ponto.azul-p { background: var(--azul); }
+.mascote { position: absolute; z-index: 4; width: 150px; pointer-events: none; filter: drop-shadow(0 18px 24px rgba(8,6,50,.28)); }
+.mascote svg { width: 100%; height: auto; overflow: visible; }
+.mascote .olhos { transform-origin: center 50%; transform-box: fill-box; animation: pisca 5.2s infinite; }
+.mascote.m2 .olhos { animation-delay: 1.7s; } .mascote.m3 .olhos { animation-delay: 3.1s; }
+@keyframes pisca { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+.flutua { animation: flutua 6s ease-in-out infinite; }
+@keyframes flutua { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+.chip { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border-radius: 999px; background: rgba(255,255,255,.14); font-size: 14px; font-weight: 500; }
+.chip b { background: var(--lima); color: var(--tinta); border-radius: 999px; padding: 4px 10px; font-size: 12px; letter-spacing: .04em; }
+.fone3d { transform-style: preserve-3d; }
+.fone3d .fone { box-shadow: 1px 1px 0 #3a3858, 2px 2px 0 #2f2d4a, 3px 3px 0 #29274a, 4px 4px 0 #23213f, 5px 5px 0 #1e1c38, 6px 6px 0 #1a1832, 7px 7px 0 #16142c, 8px 8px 0 #121026, 30px 60px 80px -20px rgba(8,6,50,.55), inset 0 0 0 2px #3a3858; }
 
-/* ---------- hero ---------- */
-.hero .miolo { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 40px; padding-block: clamp(40px, 7vw, 96px) clamp(64px, 8vw, 120px); }
+.hero .miolo { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 40px; padding-block: clamp(120px, 12vw, 170px) clamp(72px, 8vw, 120px); }
 .hero h1 { font-size: clamp(50px, 6.6vw, 100px); margin-top: 22px; }
 .hero h1 .linha { display: block; }
-.hero .serifa.grande { display: block; font-size: clamp(38px, 4.6vw, 68px); color: var(--roxo); margin-top: 14px; line-height: 1.05; }
+.hero h1 .destaque { display: inline-block; font-size: .78em; margin-top: 18px; line-height: 1.05; }
 .hero .corpo { margin-top: 30px; font-size: 20px; }
 .hero .acoes { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
-.hero .nota { margin-top: 26px; font-size: 14px; color: var(--cinza-claro); }
+.hero .nota { margin-top: 26px; font-size: 14px; color: var(--sobre-azul); opacity: .85; }
 .hero .palco-fone { position: relative; display: grid; place-items: center; perspective: 1200px; }
-.hero .halo { position: absolute; width: 140%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(200,232,138,.55), rgba(246,244,239,0) 62%); z-index: 0; }
-.hero .fone { transform: rotate(-4deg); z-index: 1; }
-.hero .selo.s1 { left: -6%; top: 26%; } .hero .selo.s2 { right: -4%; bottom: 22%; }
+.hero .fone3d { transform: rotateX(24deg) rotateY(-10deg) rotateZ(16deg); z-index: 1; }
+.hero .selo.s1 { left: -8%; top: 16%; } .hero .selo.s2 { right: -4%; bottom: 30%; }
+.hero .mascote.m1 { left: -14%; bottom: -2%; width: 170px; } .hero .mascote.m2 { right: -8%; top: 2%; width: 120px; }
+.hero .marca-dagua { right: -22%; top: -8%; }
 
-/* ---------- problema ---------- */
-.problema { background: var(--papel); }
-.problema .miolo { padding-block: clamp(72px, 10vw, 140px); }
+.problema .miolo { padding-block: clamp(80px, 10vw, 140px); }
 .problema .topo { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-.problema h2 { font-size: clamp(46px, 6.4vw, 96px); margin-top: 18px; }
+.problema h2 { font-size: clamp(46px, 6.2vw, 92px); margin-top: 18px; }
 .problema .corpo { margin-top: 28px; font-size: 19px; }
 .semana { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
 .semana .dia { display: grid; gap: 3px; }
 .semana .dia b { font: 600 12px/1 var(--texto); color: var(--cinza-claro); text-align: center; margin-bottom: 6px; }
 .semana i { display: block; height: 11px; border-radius: 3px; background: var(--bloco); transition: background .5s; }
-.semana i.acesa { background: #DCD8F6; }
-.semana i.sessao { background: var(--roxo); }
+.semana i.acesa { background: #C9CEF6; }
+.semana i.sessao { background: var(--azul); }
 .semana-legenda { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--cinza-claro); }
-.semana-legenda span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--roxo); }
+.semana-legenda span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--azul); }
 .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 72px; padding-top: 36px; border-top: 1px solid var(--linha); }
-.numeros .n { font: 400 clamp(52px, 6vw, 84px)/1 var(--serif); font-style: italic; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.numeros p { margin: 10px 0 0; font-size: 15px; color: var(--cinza); max-width: 22em; }
-.calc { margin-top: 56px; background: var(--creme); border-radius: var(--raio); padding: clamp(24px, 4vw, 44px); display: grid; grid-template-columns: 1fr auto; gap: 24px 40px; align-items: center; }
+.numeros .n { font: 800 clamp(48px, 5.4vw, 76px)/1 var(--display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.numeros p { margin: 12px 0 0; font-size: 15px; color: var(--cinza); max-width: 22em; }
+.calc { margin-top: 56px; border-radius: var(--raio); padding: clamp(24px, 4vw, 44px); display: grid; grid-template-columns: 1fr auto; gap: 24px 40px; align-items: center; background: var(--grad); color: #fff; position: relative; overflow: hidden; }
 .calc h3 { font: 700 clamp(22px, 2.4vw, 30px)/1.15 var(--display); letter-spacing: -0.02em; margin: 0 0 18px; }
-.passo { display: inline-flex; align-items: center; gap: 6px; background: var(--papel); border-radius: 999px; padding: 6px; }
-.passo button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--creme); color: var(--roxo); font: 600 24px/1 var(--texto); cursor: pointer; }
-.passo button:hover { background: #E7E4FB; }
+.passo { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.14); border-radius: 999px; padding: 6px; }
+.passo button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: #fff; color: var(--azul); font: 600 24px/1 var(--texto); cursor: pointer; }
+.passo button:hover { background: var(--lima); color: var(--tinta); }
 .passo output { min-width: 112px; text-align: center; font: 600 19px/1 var(--texto); font-variant-numeric: tabular-nums; }
 .calc .resultado { text-align: right; }
-.calc .resultado strong { display: block; font: 400 clamp(44px, 5vw, 66px)/1 var(--serif); font-style: italic; color: var(--roxo); font-variant-numeric: tabular-nums; }
-.calc .resultado span { font-size: 15px; color: var(--cinza); }
+.calc .resultado strong { display: block; font: 800 clamp(40px, 4.6vw, 62px)/1 var(--display); letter-spacing: -0.04em; color: var(--sol); font-variant-numeric: tabular-nums; }
+.calc .resultado span { font-size: 15px; color: var(--sobre-azul); }
 
-/* ---------- como funciona (história fixa) ---------- */
-.como { background: var(--creme); }
-.como .palco { max-width: var(--max); margin: 0 auto; min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-block: 88px 40px; }
+.como .palco { max-width: var(--max); margin: 0 auto; min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-block: 88px 40px; position: relative; z-index: 1; }
 .como h2 { font-size: clamp(40px, 4.4vw, 66px); margin: 16px 0 28px; }
-.passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.passos li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 14px; padding: 16px 0; border-top: 1.5px solid var(--linha); transition: border-color .5s; }
-.passos li .num { font: 400 40px/1 var(--serif); font-style: italic; color: #C9C5B8; transition: color .5s; }
-.passos li h3 { font: 700 clamp(24px, 2.5vw, 34px)/1.1 var(--display); letter-spacing: -0.025em; margin: 6px 0 0; color: #ADA99C; transition: color .5s; }
-.passos li p { grid-column: 2; margin: 0; font-size: 15px; color: #B7B3A6; max-width: 30em; transition: color .5s; }
-.passos li.ativo { border-color: var(--roxo); }
-.passos li.ativo .num { color: var(--roxo); }
-.passos li.ativo h3 { color: var(--tinta); }
-.passos li.ativo p { color: var(--cinza); }
+.passos { list-style: none; margin: 0; padding: 0; display: grid; }
+.passos li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 14px; padding: 16px 0; border-top: 1.5px solid var(--linha); transition: border-color .5s; cursor: default; }
+.passos li .num { font: 800 34px/1 var(--display); color: #C3C7E4; transition: color .5s; }
+.passos li h3 { font: 700 clamp(24px, 2.5vw, 34px)/1.1 var(--display); letter-spacing: -0.025em; margin: 2px 0 0; color: #A9ADCB; transition: color .5s; }
+.passos li p { grid-column: 2; margin: 0; font-size: 15px; color: #B1B4CE; max-width: 30em; transition: color .5s; }
+.passos li.ativo { border-color: var(--azul); }
+.passos li.ativo .num { color: var(--azul); } .passos li.ativo h3 { color: var(--tinta); } .passos li.ativo p { color: var(--cinza); }
 .passos li .mini { display: none; }
 .como .lado-fone { position: relative; display: grid; place-items: center; }
 .como .fone .tela img { opacity: 0; transform: scale(1.08); }
 .como .fone .tela img.ativa { opacity: 1; transform: scale(1); }
 .como .fone .tela img.saiu { opacity: 0; transform: scale(1.35); }
-.como .selo { transition: opacity .5s, transform .5s var(--ease); }
-.como .selo.a { left: -8%; top: 22%; } .como .selo.b { right: -6%; bottom: 20%; }
+.como .selo.a { left: -10%; top: 22%; } .como .selo.b { right: -8%; bottom: 20%; }
 
-/* ---------- gamificação ---------- */
-.jogos { background: var(--papel); }
-.jogos .miolo { padding-block: clamp(72px, 10vw, 140px); }
+.jogos .miolo { padding-block: clamp(80px, 10vw, 140px); }
 .jogos .topo { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: end; }
 .jogos h2 { font-size: clamp(44px, 5.8vw, 88px); margin-top: 18px; }
-.jogos h2 .serifa { display: block; color: var(--roxo); font-size: 1.02em; letter-spacing: -0.02em; }
-.cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 64px; }
-.card { background: var(--creme); border-radius: var(--raio); padding: 18px 18px 26px; transition: transform .4s var(--ease); }
-.card:hover { transform: translateY(-6px); }
-.card .arte { aspect-ratio: 1; border-radius: 20px; display: grid; place-items: center; }
-.card .arte img { width: 62%; image-rendering: pixelated; animation: pulo 1.6s steps(2, end) infinite; }
-.card:nth-child(2) .arte img { animation-delay: .3s; } .card:nth-child(3) .arte img { animation-delay: .6s; } .card:nth-child(4) .arte img { animation-delay: .9s; } .card:nth-child(5) .arte img { animation-delay: 1.2s; }
-@keyframes pulo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-.card h3 { font: 700 26px/1.1 var(--display); letter-spacing: -0.02em; margin: 22px 6px 6px; }
-.card p { margin: 0 6px; font-size: 15px; color: var(--cinza); }
-.jogos .rodape { margin-top: 36px; font-size: 16px; color: var(--tinta); display: flex; flex-wrap: wrap; gap: 8px 28px; }
-.jogos .rodape span::before { content: "✓"; color: var(--roxo); font-weight: 600; margin-right: 8px; }
+.jogos .marca-dagua { left: -30%; bottom: -30%; }
+.cartas { display: flex; justify-content: center; margin-top: 72px; padding-bottom: 40px; }
+.carta { flex: 0 0 236px; margin: 0 -14px; perspective: 1000px; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: var(--tinta); font: inherit; height: 330px; transition: translate .5s var(--ease); }
+.carta:hover, .carta:focus-visible { translate: 0 -18px; z-index: 5; }
+.carta .gira { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s var(--ease); }
+.carta.virada .gira { transform: rotateY(180deg); }
+.carta .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 26px; background: var(--c); padding: 20px; display: flex; flex-direction: column; box-shadow: 0 30px 60px -24px rgba(8,6,50,.65), inset 0 1px 0 rgba(255,255,255,.5); overflow: hidden; }
+.carta .nome { display: block; font: 800 26px/1 var(--display); letter-spacing: -0.03em; padding-right: 34px; }
+.carta .area { display: block; font-size: 14px; margin-top: 6px; opacity: .7; }
+.carta .bicho { position: absolute; left: 50%; bottom: -14px; width: 84%; translate: -50% 0; color: var(--b); }
+.carta .bicho svg { width: 100%; height: auto; overflow: visible; }
+.carta .dica { position: absolute; right: 16px; top: 18px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.55); display: grid; place-items: center; font-size: 16px; }
+.carta .verso { transform: rotateY(180deg); background: var(--tinta); color: #fff; justify-content: space-between; }
+.carta .verso small { display: block; font: 600 12px/1 var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--c); }
+.carta .verso .txt { display: block; margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: var(--sobre-azul); }
+.carta .verso strong { display: block; font: 700 21px/1.15 var(--display); letter-spacing: -0.02em; color: var(--c); }
+.jogos .rodape { margin-top: 40px; font-size: 16px; display: flex; flex-wrap: wrap; gap: 8px 28px; color: var(--sobre-azul); }
+.jogos .rodape span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--lima); margin-right: 10px; vertical-align: 2px; }
 
-/* ---------- profissionais ---------- */
-.prof { background: var(--tinta); color: var(--creme); }
 .prof .miolo { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; padding-block: clamp(80px, 10vw, 150px); }
-.prof .rotulo { color: var(--lima); }
 .prof h2 { font-size: clamp(42px, 5.4vw, 80px); margin-top: 18px; }
-.prof h2 .serifa { color: var(--lima); }
 .recursos { list-style: none; padding: 0; margin: 48px 0 40px; display: grid; }
-.recursos li { padding: 22px 0; border-top: 1px solid #3A3858; }
+.recursos li { padding: 22px 0; border-top: 1px solid #34316A; }
 .recursos h3 { font: 700 26px/1.15 var(--display); letter-spacing: -0.02em; margin: 0 0 6px; }
-.recursos p { margin: 0; color: var(--lilas); font-size: 16px; max-width: 32em; }
-.prof .lgpd { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 12px 18px; border-radius: 999px; background: #24223F; font-size: 14px; color: var(--creme); }
+.recursos p { margin: 0; color: var(--sobre-azul); font-size: 16px; max-width: 32em; }
+.prof .lgpd { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 12px 18px; border-radius: 12px; background: var(--tinta-2); font-size: 14px; }
+.prof .lgpd svg { width: 16px; height: 16px; flex: none; }
 .prof .lado-fone { display: grid; place-items: center; }
-.prof .fone { box-shadow: 0 50px 120px -20px rgba(0,0,0,.55), inset 0 0 0 2px #2c2a4a; }
+.prof .marca-dagua { right: -30%; top: -20%; opacity: .05; }
 
-/* ---------- reconhecimento ---------- */
-.reconhece .miolo { padding-block: clamp(72px, 10vw, 140px); }
+.reconhece .miolo { padding-block: clamp(80px, 10vw, 140px); }
 .reconhece h2 { font-size: clamp(42px, 5.6vw, 88px); margin-top: 18px; }
-.logos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
-.logo-card { background: var(--papel); border-radius: var(--raio); padding: clamp(28px, 4vw, 48px); display: grid; gap: 26px; align-content: start; }
-.logo-card img { height: 84px; width: auto; max-width: 100%; object-fit: contain; object-position: left; }
-.logo-card p { margin: 0; font: 400 clamp(26px, 2.6vw, 34px)/1.15 var(--serif); font-style: italic; color: var(--roxo); max-width: 18em; }
-.logo-card small { font-size: 14px; color: var(--cinza); }
+.logos { display: grid; grid-template-columns: 1fr 1fr; margin-top: 72px; border-top: 1px solid var(--linha); }
+.logos > div { padding: 48px 48px 8px 0; display: grid; gap: 28px; align-content: start; }
+.logos > div + div { padding-left: 48px; border-left: 1px solid var(--linha); }
+.logos img { height: 76px; width: auto; max-width: 100%; object-fit: contain; object-position: left; }
+.logos p { margin: 0; font: 700 clamp(22px, 2.2vw, 30px)/1.2 var(--display); letter-spacing: -0.02em; max-width: 18em; }
+.logos small { font-size: 15px; color: var(--cinza); }
 
-/* ---------- validação ---------- */
-.valida { background: var(--papel); }
-.valida .miolo { padding-block: clamp(72px, 10vw, 140px); }
+.valida .miolo { padding-block: clamp(80px, 10vw, 140px); }
 .valida h2 { font-size: clamp(40px, 5vw, 76px); margin-top: 18px; max-width: 14em; }
-.metricas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
-.metrica { border-top: 1.5px solid var(--tinta); padding-top: 24px; }
-.metrica .n { font: 800 clamp(64px, 8vw, 120px)/.9 var(--display); letter-spacing: -0.05em; color: var(--roxo); font-variant-numeric: tabular-nums; }
-.metrica .n small { font-size: .4em; letter-spacing: -0.02em; }
-.metrica h3 { font: 700 22px/1.2 var(--display); letter-spacing: -0.01em; margin: 18px 0 6px; }
-.metrica p { margin: 0; font-size: 15px; color: var(--cinza); }
-.valida .fonte { margin-top: 36px; font-size: 14px; color: var(--cinza-claro); }
+.valida .marca-dagua { right: -28%; top: -30%; }
+.metricas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+.metrica { border-top: 1.5px solid rgba(255,255,255,.35); padding-top: 24px; }
+.metrica .n { font: 800 clamp(64px, 8vw, 120px)/.9 var(--display); letter-spacing: -0.05em; color: #fff; font-variant-numeric: tabular-nums; }
+.metrica .n small { font-size: .4em; letter-spacing: -0.02em; color: var(--sol); }
+.metrica h3 { font: 700 22px/1.2 var(--display); margin: 18px 0 6px; color: var(--sol); }
+.metrica p { margin: 0; font-size: 15px; color: var(--sobre-azul); }
+.valida .fonte { margin-top: 36px; font-size: 14px; color: var(--sobre-azul); opacity: .8; }
 
-/* ---------- construindo + faq ---------- */
-.publico .miolo { padding-block: clamp(72px, 10vw, 140px); }
+.publico .miolo { padding-block: clamp(80px, 10vw, 140px); }
 .publico h2 { font-size: clamp(42px, 5.6vw, 88px); margin-top: 18px; }
 .linha-tempo { list-style: none; padding: 0; margin: 64px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
 .linha-tempo::before { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--linha); }
-.linha-tempo li.progresso { position: absolute; left: 0; top: 10px; height: 2px; width: 50%; padding: 0; background: var(--roxo); transform-origin: left; }
+.linha-tempo li.progresso { position: absolute; left: 0; top: 10px; height: 2px; width: 50%; padding: 0; background: var(--azul); transform-origin: left; }
 .linha-tempo li.progresso::before { display: none; }
 .linha-tempo li { position: relative; padding-top: 40px; padding-right: 16px; }
-.linha-tempo li::before { content: ""; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--creme); border: 3px solid var(--roxo); box-sizing: border-box; }
-.linha-tempo li.feito::before { background: var(--roxo); }
-.linha-tempo li.agora::before { box-shadow: 0 0 0 6px rgba(75,79,224,.18); }
+.linha-tempo li::before { content: ""; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 3px solid var(--azul); box-sizing: border-box; }
+.linha-tempo li.feito::before { background: var(--azul); }
+.linha-tempo li.agora::before { box-shadow: 0 0 0 6px rgba(59,71,224,.18); }
 .linha-tempo h3 { font: 700 24px/1.15 var(--display); letter-spacing: -0.02em; margin: 0 0 4px; }
 .linha-tempo p { margin: 0; font-size: 15px; color: var(--cinza); }
 .faq { margin-top: 96px; }
@@ -197,54 +211,54 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .faq details:last-child { border-bottom: 1px solid var(--linha); }
 .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 24px; align-items: center; padding: 26px 0; font: 700 clamp(20px, 2.2vw, 28px)/1.2 var(--display); letter-spacing: -0.02em; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; font: 400 34px/1 var(--texto); color: var(--roxo); transition: transform .4s var(--ease); flex: none; }
+.faq summary::after { content: "+"; font: 400 34px/1 var(--texto); color: var(--azul); transition: transform .4s var(--ease); flex: none; }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { margin: 0 0 28px; max-width: 46em; color: var(--cinza); }
 
-/* ---------- final ---------- */
-.final { background: var(--tinta); color: var(--creme); }
 .final .miolo { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; padding-block: clamp(80px, 10vw, 140px) 64px; }
 .final h2 { font-size: clamp(54px, 7.4vw, 112px); }
-.final h2 .serifa { display: block; color: var(--lima); }
-.final .corpo { color: var(--lilas); margin-top: 26px; }
-.form { background: var(--papel); color: var(--tinta); border-radius: 32px; padding: clamp(24px, 3.4vw, 44px); display: grid; gap: 16px; }
+.final h2 .destaque { display: block; }
+.final .corpo { margin-top: 26px; }
+.final .marca-dagua { left: 20%; top: -10%; }
+.form { background: #fff; color: var(--tinta); border-radius: 28px; padding: clamp(24px, 3.4vw, 44px); display: grid; gap: 16px; box-shadow: 0 40px 80px -40px rgba(8,6,50,.6); }
 .form h3 { font: 700 30px/1.1 var(--display); letter-spacing: -0.02em; margin: 0 0 6px; }
 .form label { display: grid; gap: 8px; font-size: 14px; color: var(--cinza); }
-.form input { font: 400 17px/1.2 var(--texto); padding: 15px 16px; border-radius: 14px; border: 1.5px solid transparent; background: var(--creme); color: var(--tinta); }
-.form input:focus { outline: none; border-color: var(--roxo); background: var(--papel); }
+.form input { font: 400 17px/1.2 var(--texto); padding: 15px 16px; border-radius: 14px; border: 1.5px solid transparent; background: var(--nevoa); color: var(--tinta); }
+.form input:focus { outline: none; border-color: var(--azul); background: #fff; }
 .perfil { display: flex; flex-wrap: wrap; gap: 10px; border: 0; padding: 0; margin: 0; }
 .perfil legend { font-size: 14px; color: var(--cinza); margin-bottom: 8px; padding: 0; }
-.perfil label { display: inline-flex; flex-direction: row; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; border: 1.5px solid #CFCBBE; color: var(--tinta); cursor: pointer; font-size: 15px; font-weight: 500; }
+.perfil label { display: inline-flex; flex-direction: row; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; border: 1.5px solid #CBCFE6; color: var(--tinta); cursor: pointer; font-size: 15px; font-weight: 500; }
 .perfil input { position: absolute; opacity: 0; pointer-events: none; }
-.perfil label:has(input:checked) { background: var(--roxo); border-color: var(--roxo); color: #fff; }
-.perfil label:has(input:focus-visible) { outline: 3px solid var(--roxo); outline-offset: 3px; }
+.perfil label:has(input:checked) { background: var(--azul); border-color: var(--azul); color: #fff; }
+.perfil label:has(input:focus-visible) { outline: 3px solid var(--azul); outline-offset: 3px; }
 .form .botao { justify-self: start; margin-top: 6px; }
 .form .lgpd { font-size: 13px; color: var(--cinza-claro); margin: 0; }
-.sucesso { text-align: left; }
 .sucesso strong { display: block; font: 700 30px/1.1 var(--display); margin-bottom: 8px; }
-.rodape-site .miolo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-block: 36px 48px; border-top: 1px solid #2E2C4A; font-size: 14px; color: var(--lilas); }
-.rodape-site .marca { color: var(--creme); font-size: 22px; }
+.rodape-site { position: relative; z-index: 1; }
+.rodape-site .miolo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-block: 36px 48px; border-top: 1px solid rgba(255,255,255,.2); font-size: 14px; color: var(--sobre-azul); }
+.rodape-site .marca { color: #fff; font-size: 22px; }
 .rodape-site .marca svg { width: 32px; height: 32px; }
 .rodape-site p { margin: 8px 0 0; }
 .rodape-site nav { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; }
 .rodape-site nav a { text-decoration: none; }
-.rodape-site nav a:hover { color: var(--creme); }
+.rodape-site nav a:hover { color: #fff; }
 
-/* ---------- responsivo ---------- */
 @media (max-width: 980px) {
   .menu nav { display: none; }
   .hero .miolo, .problema .topo, .jogos .topo, .prof .miolo, .final .miolo, .como .palco { grid-template-columns: 1fr; }
   .hero .palco-fone { margin-top: 24px; }
-  .cards { grid-template-columns: repeat(2, 1fr); }
-  .cards .card:last-child { grid-column: span 2; }
+  .cartas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .carta { margin: 0; height: 270px; rotate: 0deg !important; }
+  .carta:last-child { grid-column: span 2; }
+  .hero .mascote.m1 { left: -2%; width: 120px; } .hero .mascote.m2 { right: 0; width: 90px; }
   .como .palco { min-height: 0; padding-block: 80px; }
   .como .lado-fone { display: none; }
-  .passos li { opacity: 1; }
-  .passos li .num { color: var(--roxo); } .passos li h3 { color: var(--tinta); } .passos li p { color: var(--cinza); }
-  .passos li .mini { display: block; grid-column: 1 / -1; width: min(260px, 70vw); margin: 18px auto 0; border-radius: 30px; box-shadow: 0 0 0 8px #121126, 0 30px 60px -20px rgba(40,30,120,.35); }
+  .passos li .num { color: var(--azul); } .passos li h3 { color: var(--tinta); } .passos li p { color: var(--cinza); }
+  .passos li .mini { display: block; grid-column: 1 / -1; width: min(260px, 70vw); margin: 18px auto 0; border-radius: 30px; box-shadow: 0 0 0 8px #0E0C2B, 0 30px 60px -20px rgba(10,8,60,.4); }
   .calc { grid-template-columns: 1fr; } .calc .resultado { text-align: left; }
   .numeros, .metricas { grid-template-columns: 1fr; gap: 28px; }
   .logos { grid-template-columns: 1fr; }
+  .logos > div { padding: 36px 0 8px; } .logos > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--linha); margin-top: 28px; }
   .linha-tempo { grid-template-columns: 1fr 1fr; row-gap: 32px; }
   .linha-tempo::before, .linha-tempo li.progresso { display: none; }
 }
@@ -252,7 +266,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   body { font-size: 17px; }
   .menu .botao { display: none; }
   .hero .selo.s1 { left: 0; } .hero .selo.s2 { right: 0; }
-  .linha-tempo { grid-template-columns: 1fr; }
+  .carta .nome { font-size: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -261,52 +275,60 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 </head>
 <body>
 
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D6BF2"/><stop offset=".55" stop-color="#7B5CF0"/><stop offset="1" stop-color="#C46BE6"/></linearGradient>
+    <linearGradient id="lgE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD83D"/><stop offset="1" stop-color="#FF980A"/></linearGradient>
+    <symbol id="anel" viewBox="0 0 100 100"><path d="M48.53 8.03A42 42 0 0 0 22.59 18.18L30.42 27.27A30 30 0 0 1 48.95 20.02Z"/><path d="M18.91 21.76A42 42 0 0 0 8.08 47.44L20.06 48.17A30 30 0 0 1 27.79 29.83Z"/><path d="M8.08 52.56A42 42 0 0 0 18.91 78.24L27.790 70.17A30 30 0 0 1 20.06 51.83Z"/><path d="M22.59 81.82A42 42 0 0 0 48.53 91.97L48.95 79.98A30 30 0 0 1 30.42 72.73Z"/><path d="M52 8.05A42 42 0 0 1 52 91.95L52 80.9A24 31 0 0 0 52 19.1Z"/><polygon points="50,37 53.29,45.47 62.36,45.98 55.33,51.73 57.64,60.52 50,55.6 42.36,60.52 44.67,51.73 37.64,45.98 46.71,45.47"/></symbol>
+    <symbol id="logo" viewBox="0 0 100 100"><path d="M48.53 8.03A42 42 0 0 0 22.59 18.18L30.42 27.27A30 30 0 0 1 48.95 20.02Z" fill="#5CC8F2"/><path d="M18.91 21.76A42 42 0 0 0 8.08 47.44L20.06 48.17A30 30 0 0 1 27.79 29.83Z" fill="#6DD3F3"/><path d="M8.08 52.56A42 42 0 0 0 18.91 78.24L27.79 70.17A30 30 0 0 1 20.06 51.83Z" fill="#82E3C6"/><path d="M22.59 81.82A42 42 0 0 0 48.53 91.97L48.95 79.98A30 30 0 0 1 30.42 72.73Z" fill="#C8E88A"/><path d="M52 8.05A42 42 0 0 1 52 91.95L52 80.9A24 31 0 0 0 52 19.1Z" fill="url(#lgA)"/><polygon points="50,37 53.29,45.47 62.36,45.98 55.33,51.73 57.64,60.52 50,55.6 42.36,60.52 44.67,51.73 37.64,45.98 46.71,45.47" fill="url(#lgE)"/></symbol>
+    <symbol id="corpo" viewBox="0 0 120 100"><path d="M22 62C8 44 18 20 38 22C40 6 60 2 66 16C76 4 96 10 94 30C114 34 118 60 102 72C92 96 32 96 22 62Z"/></symbol>
+  </defs>
+</svg>
+
 <header class="menu faixa" id="menu">
   <div class="miolo">
-    <a class="marca" href="#inicio" aria-label="Daily Hero, início">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="lgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D6BF2"/><stop offset=".55" stop-color="#7B5CF0"/><stop offset="1" stop-color="#C46BE6"/></linearGradient><linearGradient id="lgE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD83D"/><stop offset="1" stop-color="#FF980A"/></linearGradient></defs><path d="M48.53 8.03A42 42 0 0 0 22.59 18.18L30.42 27.27A30 30 0 0 1 48.95 20.02Z" fill="#5CC8F2"/><path d="M18.91 21.76A42 42 0 0 0 8.08 47.44L20.06 48.17A30 30 0 0 1 27.79 29.83Z" fill="#6DD3F3"/><path d="M8.08 52.56A42 42 0 0 0 18.91 78.24L27.79 70.17A30 30 0 0 1 20.06 51.83Z" fill="#82E3C6"/><path d="M22.59 81.82A42 42 0 0 0 48.53 91.97L48.95 79.98A30 30 0 0 1 30.42 72.73Z" fill="#C8E88A"/><path d="M52 8.05A42 42 0 0 1 52 91.95L52 80.9A24 31 0 0 0 52 19.1Z" fill="url(#lgA)"/><polygon points="50,37 53.29,45.47 62.36,45.98 55.33,51.73 57.64,60.52 50,55.6 42.36,60.52 44.67,51.73 37.64,45.98 46.71,45.47" fill="url(#lgE)"/></svg>
-      Daily Hero
-    </a>
+    <a class="marca" href="#inicio" aria-label="Daily Hero, início"><svg aria-hidden="true"><use href="#logo"/></svg>Daily Hero</a>
     <nav aria-label="Seções">
       <a href="#como">Como funciona</a>
       <a href="#profissionais">Para profissionais</a>
       <a href="#reconhecimento">Reconhecimento</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="botao escuro" href="#beta">Entrar no beta</a>
+    <a class="botao" href="#beta">Entrar no beta</a>
   </div>
 </header>
 
 <main id="inicio">
-  <!-- 01 · HERO -->
-  <section class="hero faixa">
+  <section class="hero azul faixa">
+    <div class="marca-dagua" data-gira aria-hidden="true"><svg fill="currentColor"><use href="#anel"/></svg></div>
     <div class="miolo">
       <div>
-        <span class="rotulo revela">App para crianças autistas · famílias · terapeutas</span>
-        <h1 class="titulo"><span class="linha revela">A terapia dura</span><span class="linha revela">40 minutos.</span><span class="serifa grande revela">O cuidado, a semana inteira.</span></h1>
+        <span class="chip revela"><b>BETA</b>Gratuito para famílias e profissionais</span>
+        <h1 class="titulo"><span class="linha revela">A terapia dura</span><span class="linha revela">40 minutos.</span><span class="linha revela"><span class="destaque">O cuidado, a semana inteira.</span></span></h1>
         <p class="corpo revela">Jogos curtos com estímulos planejados para a rotina da criança. Cada resposta vira um dado que o profissional acompanha para ajustar o tratamento.</p>
         <div class="acoes revela">
-          <a class="botao primario" href="#beta">Quero participar do beta <span aria-hidden="true">→</span></a>
-          <a class="botao contorno" href="#como">Ver como funciona</a>
+          <a class="botao branco" href="#beta">Quero participar do beta <span class="seta" aria-hidden="true">→</span></a>
+          <a class="botao contorno-claro" href="#como">Ver como funciona</a>
         </div>
         <p class="nota revela">Não substitui o terapeuta. Conecta o que acontece entre as sessões.</p>
       </div>
       <div class="palco-fone" aria-hidden="true">
-        <div class="halo"></div>
-        <div class="fone" id="fone-hero"><div class="ilha"></div><div class="tela"><img src="img/tela-inicio.webp" alt="" width="585" height="1266"></div></div>
-        <span class="selo s1">🔥 12 dias seguidos</span>
-        <span class="selo lima s2">⭐ +1 estrela hoje</span>
+        <div class="fone3d" id="fone-hero"><div class="fone"><div class="ilha"></div><div class="tela"><img src="img/tela-inicio.webp" alt="" width="585" height="1266"></div></div></div>
+        <span class="selo s1"><span class="ponto sol"></span><b>12</b> dias seguidos</span>
+        <span class="selo s2"><span class="ponto"></span>+1 estrela hoje</span>
+        <span class="mascote m1 flutua" aria-hidden="true"><svg viewBox="0 0 120 100"><use href="#corpo" fill="#FF6B3D"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span>
+        <span class="mascote m2 flutua" aria-hidden="true"><svg viewBox="0 0 120 100"><use href="#corpo" fill="#B79CFF"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span>
       </div>
     </div>
   </section>
 
-  <!-- 02 · PROBLEMA -->
   <section class="problema faixa" id="problema">
     <div class="miolo">
       <div class="topo">
         <div>
           <span class="rotulo">O problema</span>
-          <h2 class="titulo revela">Uma semana tem 168 horas.</h2>
+          <h2 class="titulo revela">Uma semana tem <span class="destaque">168 horas.</span></h2>
           <p class="corpo revela">A sessão de terapia é uma parte pequena dela. O resto da semana acontece em casa: a família não sabe exatamente o que estimular, e o profissional planeja a próxima sessão com base no que alguém lembrou de contar.</p>
         </div>
         <div>
@@ -333,12 +355,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <!-- 03 · COMO FUNCIONA (história fixa) -->
-  <section class="como faixa" id="como">
+  <section class="como clara faixa" id="como">
     <div class="palco" id="palco-como">
       <div>
         <span class="rotulo">Como funciona</span>
-        <h2 class="titulo">O Daily Hero conecta esse espaço.</h2>
+        <h2 class="titulo">O Daily Hero <span class="destaque">conecta</span> esse espaço.</h2>
         <ol class="passos" id="passos">
           <li class="ativo"><span class="num">1</span><h3>A rotina vira missão</h3><p>Os hábitos da casa viram as tarefas do dia, com começo, meio e fim.</p><img class="mini" src="img/tela-inicio.webp" alt="Tela inicial do app com a atividade do dia" loading="lazy"></li>
           <li><span class="num">2</span><h3>Cada jogo, um estímulo</h3><p>Jogos curtos e planejados para memória, coordenação, linguagem e emoções.</p><img class="mini" src="img/tela-jogo.webp" alt="Jogo da memória em pixel art" loading="lazy"></li>
@@ -353,68 +374,83 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <img src="img/tela-relatorio.webp" alt="">
           <img src="img/tela-paciente.webp" alt="">
         </div></div>
-        <span class="selo a" id="selo-a">🔥 12 dias seguidos</span>
-        <span class="selo lima b" id="selo-b">✓ 7 hábitos de hoje</span>
+        <span class="selo a" id="selo-a"><span class="ponto sol"></span><b>12</b> dias seguidos</span>
+        <span class="selo b" id="selo-b"><span class="ponto"></span>7 hábitos de hoje</span>
       </div>
     </div>
   </section>
 
-  <!-- 04 · GAMIFICAÇÃO -->
-  <section class="jogos faixa" id="jogos">
+  <section class="jogos azul faixa" id="jogos">
+    <div class="marca-dagua" data-gira aria-hidden="true"><svg fill="currentColor"><use href="#anel"/></svg></div>
     <div class="miolo">
       <div class="topo">
         <div>
           <span class="rotulo">Gamificação com propósito</span>
-          <h2 class="titulo revela">Jogar com propósito, <span class="serifa">não por jogar.</span></h2>
+          <h2 class="titulo revela">Jogar com propósito, <span class="destaque">não por jogar.</span></h2>
         </div>
-        <p class="corpo revela">Cada jogo estimula uma área do desenvolvimento. São os mesmos módulos que o profissional acompanha no relatório.</p>
+        <p class="corpo revela">Cada jogo estimula uma área do desenvolvimento, e são as mesmas áreas que o profissional acompanha no relatório. Toque nas cartas para ver como.</p>
       </div>
-      <div class="cards">
-        <article class="card revela"><div class="arte" style="background:#DDF4EA"><img src="img/icone-rotina.svg" alt="" width="128" height="128"></div><h3>Rotina</h3><p>Hábitos do dia a dia, em sequência visual.</p></article>
-        <article class="card revela"><div class="arte" style="background:#DFF0FA"><img src="img/icone-memoria.svg" alt="" width="128" height="128"></div><h3>Memória</h3><p>Cognição, atenção e pares.</p></article>
-        <article class="card revela"><div class="arte" style="background:#FBEFD6"><img src="img/icone-coordenacao.svg" alt="" width="128" height="128"></div><h3>Coordenação</h3><p>Motor fino: encaixar, arrastar, montar.</p></article>
-        <article class="card revela"><div class="arte" style="background:#E9E6FB"><img src="img/icone-linguagem.svg" alt="" width="128" height="128"></div><h3>Linguagem</h3><p>Comunicação com figuras e voz.</p></article>
-        <article class="card revela"><div class="arte" style="background:#FBE4DE"><img src="img/icone-emocoes.svg" alt="" width="128" height="128"></div><h3>Emoções</h3><p>Reconhecer e nomear o que sente.</p></article>
+      <div class="cartas" id="cartas">
+        <button class="carta" type="button" style="--c:#7EE0B5;--b:#2E9C6E" aria-label="Rotina: Autonomia. Ver detalhes"><span class="gira">
+          <span class="face"><span class="nome">Rotina</span><span class="area">Autonomia</span><span class="dica" aria-hidden="true">↻</span><span class="bicho"><svg viewBox="0 0 120 100"><use href="#corpo" fill="currentColor"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span></span>
+          <span class="face verso"><span><small>Estimula</small><span class="txt">Autonomia e previsibilidade: escovar os dentes, se vestir, arrumar o quarto, na ordem certa.</span></span><strong>Tarefas do dia com começo, meio e fim</strong></span>
+        </span></button>
+        <button class="carta" type="button" style="--c:#FF8A5B;--b:#D9481C" aria-label="Memória: Atenção. Ver detalhes"><span class="gira">
+          <span class="face"><span class="nome">Memória</span><span class="area">Atenção</span><span class="dica" aria-hidden="true">↻</span><span class="bicho"><svg viewBox="0 0 120 100"><use href="#corpo" fill="currentColor"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span></span>
+          <span class="face verso"><span><small>Estimula</small><span class="txt">Atenção, memória de trabalho e reconhecimento de padrões.</span></span><strong>Jogo da memória e sequências</strong></span>
+        </span></button>
+        <button class="carta" type="button" style="--c:#FFD24A;--b:#E09A00" aria-label="Coordenação: Motor fino. Ver detalhes"><span class="gira">
+          <span class="face"><span class="nome">Coordenação</span><span class="area">Motor fino</span><span class="dica" aria-hidden="true">↻</span><span class="bicho"><svg viewBox="0 0 120 100"><use href="#corpo" fill="currentColor"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span></span>
+          <span class="face verso"><span><small>Estimula</small><span class="txt">Motor fino: precisão do toque, arrastar, encaixar e montar.</span></span><strong>Montar figuras peça por peça</strong></span>
+        </span></button>
+        <button class="carta" type="button" style="--c:#B79CFF;--b:#6D4FE0" aria-label="Linguagem: Comunicação. Ver detalhes"><span class="gira">
+          <span class="face"><span class="nome">Linguagem</span><span class="area">Comunicação</span><span class="dica" aria-hidden="true">↻</span><span class="bicho"><svg viewBox="0 0 120 100"><use href="#corpo" fill="currentColor"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span></span>
+          <span class="face verso"><span><small>Estimula</small><span class="txt">Comunicação com figuras e voz, inclusive para crianças não verbais.</span></span><strong>Prancha "Falar" com frases</strong></span>
+        </span></button>
+        <button class="carta" type="button" style="--c:#FF8FB8;--b:#D9457E" aria-label="Emoções: Socioemocional. Ver detalhes"><span class="gira">
+          <span class="face"><span class="nome">Emoções</span><span class="area">Socioemocional</span><span class="dica" aria-hidden="true">↻</span><span class="bicho"><svg viewBox="0 0 120 100"><use href="#corpo" fill="currentColor"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span></span>
+          <span class="face verso"><span><small>Estimula</small><span class="txt">Reconhecer e nomear o que sente, e o que os outros sentem.</span></span><strong>Rostos e situações do dia a dia</strong></span>
+        </span></button>
       </div>
       <div class="rodape"><span>Poucos minutos por dia</span><span>No ritmo da criança</span><span>Sem sons ou animações bruscas</span></div>
     </div>
   </section>
 
-  <!-- 05 · PROFISSIONAIS -->
-  <section class="prof faixa" id="profissionais">
+  <section class="prof escura faixa" id="profissionais">
+    <div class="marca-dagua" data-gira aria-hidden="true"><svg fill="currentColor"><use href="#anel"/></svg></div>
     <div class="miolo">
       <div>
         <span class="rotulo">Para profissionais</span>
-        <h2 class="titulo revela">O que acontece em casa chega <span class="serifa">organizado até você.</span></h2>
+        <h2 class="titulo revela">O que acontece em casa chega <span class="destaque">organizado até você.</span></h2>
         <ul class="recursos">
           <li class="revela"><h3>Evolução por área</h3><p>Acertos de primeira, tentativas e tempo em cada módulo de estímulo.</p></li>
           <li class="revela"><h3>Trilha ajustável</h3><p>Você escolhe os jogos e o nível de cada criança. A família só aperta PLAY.</p></li>
           <li class="revela"><h3>Dia após dia</h3><p>Observações da família e as suas, organizadas por data.</p></li>
         </ul>
-        <a class="botao lima" href="#beta">Sou profissional, quero testar <span aria-hidden="true">→</span></a><br>
-        <span class="lgpd">🔒 LGPD · o profissional só vê os dados com aprovação da família</span>
+        <a class="botao branco" href="#beta">Sou profissional, quero testar <span class="seta" aria-hidden="true">→</span></a><br>
+        <span class="lgpd"><svg viewBox="0 0 16 16" fill="none" stroke="#C8E88A" stroke-width="1.6" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="2"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>LGPD · o profissional só vê os dados com aprovação da família</span>
       </div>
       <div class="lado-fone" aria-hidden="true"><div class="fone" id="fone-prof"><div class="ilha"></div><div class="tela"><img src="img/tela-paciente.webp" alt="" loading="lazy"></div></div></div>
     </div>
   </section>
 
-  <!-- 06 · RECONHECIMENTO -->
   <section class="reconhece faixa" id="reconhecimento">
+    <div class="marca-dagua escuro" data-gira aria-hidden="true" style="left:-35%;top:-10%"><svg fill="currentColor"><use href="#anel"/></svg></div>
     <div class="miolo">
       <span class="rotulo">Reconhecimento</span>
-      <h2 class="titulo revela">Reconhecido entre os 40 destaques do Brasil.</h2>
+      <h2 class="titulo revela">Reconhecido entre os <span class="destaque">40 destaques</span> do Brasil.</h2>
       <div class="logos">
-        <div class="logo-card revela"><img src="img/logo-fdc.svg" alt="Fundação Dom Cabral" loading="lazy"><p>Bolsa em uma das 10 melhores escolas executivas do mundo.</p></div>
-        <div class="logo-card revela"><img src="img/logo-espro.svg" alt="Espro" loading="lazy"><p>Projeto selecionado entre os 40 destaques nacionais.</p><small>Programa Jovens Embaixadores Espro</small></div>
+        <div class="revela"><img src="img/logo-fdc.svg" alt="Fundação Dom Cabral" loading="lazy"><p>Bolsa em uma das 10 melhores escolas executivas do mundo.</p></div>
+        <div class="revela"><img src="img/logo-espro.svg" alt="Espro" loading="lazy"><p>Projeto selecionado entre os 40 destaques nacionais.</p><small>Programa Jovens Embaixadores Espro</small></div>
       </div>
     </div>
   </section>
 
-  <!-- 07 · VALIDAÇÃO -->
-  <section class="valida faixa">
+  <section class="valida azul faixa">
+    <div class="marca-dagua" data-gira aria-hidden="true"><svg fill="currentColor"><use href="#anel"/></svg></div>
     <div class="miolo">
       <span class="rotulo">Validação de campo</span>
-      <h2 class="titulo revela">Validado com especialistas em TEA antes de chegar às famílias.</h2>
+      <h2 class="titulo revela">Validado com especialistas em TEA <span class="destaque">antes de chegar às famílias.</span></h2>
       <div class="metricas">
         <div class="metrica revela"><div class="n" data-conta="100" data-sufixo="%">100%</div><h3>recomendariam a colegas</h3><p>Todos os profissionais indicariam o Daily Hero a outros especialistas.</p></div>
         <div class="metrica revela"><div class="n">4,7<small>/5</small></div><h3>integração clínica</h3><p>Nota média para a utilidade do Daily Hero no atendimento real.</p></div>
@@ -424,11 +460,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <!-- 08 · CONSTRUINDO EM PÚBLICO + FAQ -->
   <section class="publico faixa" id="faq">
     <div class="miolo">
       <span class="rotulo">Construindo em público</span>
-      <h2 class="titulo revela">Do protótipo ao app, em público.</h2>
+      <h2 class="titulo revela">Do protótipo ao app, <span class="destaque">em público.</span></h2>
       <ol class="linha-tempo" id="linha-tempo">
         <li class="progresso" id="progresso" aria-hidden="true"></li>
         <li class="feito"><h3>Protótipo validado</h3><p>com especialistas em TEA</p></li>
@@ -447,14 +482,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <!-- 09 · CHAMADA FINAL -->
-  <section class="final faixa" id="beta">
+  <section class="final azul faixa" id="beta">
+    <div class="marca-dagua" data-gira aria-hidden="true"><svg fill="currentColor"><use href="#anel"/></svg></div>
     <div class="miolo">
       <div>
-        <h2 class="titulo">Vamos construir <span class="serifa">juntos?</span></h2>
+        <h2 class="titulo">Vamos construir <span class="destaque">juntos?</span></h2>
         <p class="corpo">Estamos selecionando famílias e profissionais de saúde para o beta fechado. Vagas limitadas.</p>
+
       </div>
-      <form class="form" id="form-beta" novalidate>
+      <div style="position:relative"><span class="mascote m3" aria-hidden="true" style="right:28px;top:-74px;width:130px;z-index:0"><svg viewBox="0 0 120 100"><use href="#corpo" fill="#C8E88A"/><g class="olhos"><ellipse cx="50" cy="52" rx="9" ry="11" fill="#fff"/><ellipse cx="74" cy="52" rx="9" ry="11" fill="#fff"/><circle class="pupila" cx="52" cy="54" r="4.6" fill="#14123A"/><circle class="pupila" cx="76" cy="54" r="4.6" fill="#14123A"/></g></svg></span>
+      <form class="form" id="form-beta" novalidate style="position:relative;z-index:1">
         <h3>Quero participar do beta</h3>
         <label for="beta-nome">Nome<input id="beta-nome" name="nome" autocomplete="name" required></label>
         <label for="beta-email">E-mail<input id="beta-email" name="email" type="email" autocomplete="email" required></label>
@@ -463,22 +500,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <label for="perfil-familia"><input type="radio" id="perfil-familia" name="perfil" value="familia" checked>Família</label>
           <label for="perfil-prof"><input type="radio" id="perfil-prof" name="perfil" value="profissional">Profissional</label>
         </fieldset>
-        <button class="botao escuro" type="submit" id="beta-enviar">Enviar <span aria-hidden="true">→</span></button>
+        <button class="botao tinta" type="submit" id="beta-enviar">Enviar <span class="seta" aria-hidden="true">→</span></button>
         <p class="lgpd" id="beta-erro" role="alert" hidden></p>
         <p class="lgpd">Seus dados não são compartilhados com terceiros, conforme a LGPD (Lei nº 13.709/2018).</p>
       </form>
+      </div>
       <div class="form sucesso" id="beta-ok" hidden><strong>Interesse registrado!</strong><p>Entraremos em contato pelo e-mail e WhatsApp informados assim que o beta abrir. Obrigado por acreditar no Daily Hero.</p></div>
     </div>
     <footer class="rodape-site">
       <div class="miolo">
-        <div>
-          <a class="marca" href="#inicio"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M48.53 8.03A42 42 0 0 0 22.59 18.18L30.42 27.27A30 30 0 0 1 48.95 20.02Z" fill="#5CC8F2"/><path d="M18.91 21.76A42 42 0 0 0 8.08 47.44L20.06 48.17A30 30 0 0 1 27.79 29.83Z" fill="#6DD3F3"/><path d="M8.08 52.56A42 42 0 0 0 18.91 78.24L27.79 70.17A30 30 0 0 1 20.06 51.83Z" fill="#82E3C6"/><path d="M22.59 81.82A42 42 0 0 0 48.53 91.97L48.95 79.98A30 30 0 0 1 30.42 72.73Z" fill="#C8E88A"/><path d="M52 8.05A42 42 0 0 1 52 91.95L52 80.9A24 31 0 0 0 52 19.1Z" fill="url(#lgA)"/><polygon points="50,37 53.29,45.47 62.36,45.98 55.33,51.73 57.64,60.52 50,55.6 42.36,60.52 44.67,51.73 37.64,45.98 46.71,45.47" fill="url(#lgE)"/></svg>Daily Hero</a>
-          <p>Heróis se constroem um dia de cada vez.</p>
-        </div>
-        <nav aria-label="Rodapé">
-          <a href="#">Termos</a><a href="#">Privacidade</a><span>odailyhero@gmail.com</span><a href="https://www.instagram.com/" rel="noopener">Instagram</a><a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
-        </nav>
-        <p style="flex-basis:100%;margin:0;color:#77749A;font-size:13px">© 2026 Daily Hero · Tecnologia assistiva que conecta rotina, família e profissional · Em conformidade com a LGPD.</p>
+        <div><a class="marca" href="#inicio"><svg aria-hidden="true"><use href="#logo"/></svg>Daily Hero</a><p>Heróis se constroem um dia de cada vez.</p></div>
+        <nav aria-label="Rodapé"><a href="#">Termos</a><a href="#">Privacidade</a><span>odailyhero@gmail.com</span><a href="https://www.instagram.com/" rel="noopener">Instagram</a><a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a></nav>
+        <p style="flex-basis:100%;margin:0;font-size:13px;opacity:.75">© 2026 Daily Hero · Tecnologia assistiva que conecta rotina, família e profissional · Em conformidade com a LGPD.</p>
       </div>
     </footer>
   </section>
@@ -492,84 +525,87 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // menu muda ao rolar
-  const menu = $('#menu');
-  const marcaMenu = () => menu.classList.toggle('rolou', scrollY > 30);
+  const menu = $('#menu'), hero = $('.hero');
+  const marcaMenu = () => menu.classList.toggle('rolou', scrollY > hero.offsetHeight - 80);
   addEventListener('scroll', marcaMenu, { passive: true }); marcaMenu();
 
-  // grade da semana: 7 dias × 24 horas, sessão na terça às 14h
-  const semana = $('#semana'); const dias = ['Ter','Qua','Qui','Sex','Sáb','Dom','Seg']; const celulas = [];
-  dias.forEach((d, c) => { const col = document.createElement('div'); col.className = 'dia'; col.innerHTML = `<b>${d}</b>`;
+  const semana = $('#semana'), celulas = [];
+  ['Ter','Qua','Qui','Sex','Sáb','Dom','Seg'].forEach((d, c) => { const col = document.createElement('div'); col.className = 'dia'; col.innerHTML = `<b>${d}</b>`;
     for (let h = 0; h < 24; h++) { const i = document.createElement('i'); if (c === 0 && h === 14) i.className = 'sessao'; else celulas.push(i); col.appendChild(i); }
     semana.appendChild(col); });
 
-  // calculadora
   let min = 40; const fmt = (m) => { const h = Math.floor(m / 60), r = m % 60; return h ? (r ? `${h} h ${r} min` : `${h} h`) : `${r} min`; };
-  const atualiza = () => { $('#minutos').value = fmt(min); $('#minutos').textContent = fmt(min); $('#sem-acomp').textContent = fmt(168 * 60 - min); };
+  const atualiza = () => { $('#minutos').textContent = fmt(min); $('#sem-acomp').textContent = fmt(168 * 60 - min); };
   $('#menos').addEventListener('click', () => { min = Math.max(10, min - 10); atualiza(); });
   $('#mais').addEventListener('click', () => { min = Math.min(600, min + 10); atualiza(); });
   atualiza();
 
-  // formulário do beta (mesma planilha do site atual)
+  $$('.carta').forEach((c) => c.addEventListener('click', () => c.classList.toggle('virada')));
+  const pupilas = $$('.pupila');
+  if (!calmo) addEventListener('pointermove', (e) => { pupilas.forEach((p) => { const r = p.ownerSVGElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
+    p.setAttribute('transform', `translate(${(dx / d * 3.2).toFixed(2)} ${(dy / d * 3.2).toFixed(2)})`); }); }, { passive: true });
+
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzP2CmbvIaTQ2M21oh0j726eXEpgBf7VSPioVm2e8n3AxEoO777mceog01kXqGljjuYlg/exec';
   $('#form-beta').addEventListener('submit', async (e) => {
     e.preventDefault(); const f = e.currentTarget, erro = $('#beta-erro');
-    if (!f.checkValidity()) { erro.textContent = 'Preencha nome, um e-mail válido e o WhatsApp com DDD.'; erro.hidden = false; f.reportValidity?.(); return; }
+    if (!f.checkValidity()) { erro.textContent = 'Preencha nome, um e-mail válido e o WhatsApp com DDD.'; erro.hidden = false; return; }
     erro.hidden = true; const btn = $('#beta-enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
     const dados = { nome: $('#beta-nome').value, email: $('#beta-email').value, whatsapp: $('#beta-whatsapp').value, perfil: f.perfil.value };
-    try { await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) }); } catch (err) { /* no-cors não devolve resposta */ }
+    try { await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) }); } catch (err) { /* no-cors */ }
     f.hidden = true; $('#beta-ok').hidden = false;
   });
 
-  // passos da história: troca de tela
   const passos = $$('#passos li'), telas = $$('#fone-como .tela img');
-  const SELOS = [['🔥 12 dias seguidos','✓ 7 hábitos de hoje'],['⭐ par encontrado','acertos 72%'],['📈 +10 pontos na semana','Memória em evolução'],['🩺 Trilha ajustada','3 jogos para amanhã']];
+  const SELOS = [['<span class="ponto sol"></span><b>12</b> dias seguidos', '<span class="ponto"></span>7 hábitos de hoje'], ['<span class="ponto sol"></span>Par encontrado', '<span class="ponto"></span><b>72%</b> de acertos'], ['<span class="ponto azul-p"></span><b>+10</b> pontos na semana', '<span class="ponto"></span>Memória em evolução'], ['<span class="ponto azul-p"></span>Trilha ajustada', '<span class="ponto"></span><b>3</b> jogos para amanhã']];
   let atual = 0;
   const vaiPara = (i) => { if (i === atual) return;
     passos.forEach((p, k) => p.classList.toggle('ativo', k === i));
     telas.forEach((t, k) => { t.classList.toggle('ativa', k === i); t.classList.toggle('saiu', k < i); });
-    $('#selo-a').textContent = SELOS[i][0]; $('#selo-b').textContent = SELOS[i][1]; atual = i; };
+    $('#selo-a').innerHTML = SELOS[i][0]; $('#selo-b').innerHTML = SELOS[i][1]; atual = i; };
 
-  if (!window.gsap || calmo) { // sem animação: passos clicáveis
-    passos.forEach((p, i) => p.addEventListener('click', () => vaiPara(i))); return; }
+  if (!window.gsap || calmo) { passos.forEach((p, i) => p.addEventListener('click', () => vaiPara(i))); return; }
 
   gsap.registerPlugin(ScrollTrigger);
+  const mm0 = gsap.matchMedia();
   const lenis = window.Lenis ? new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 }) : null;
   if (lenis) { lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
     $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => { const alvo = $(a.getAttribute('href')); if (alvo) { e.preventDefault(); lenis.scrollTo(alvo, { offset: -70, duration: 1.4 }); } })); }
 
-  // entrada do hero
   gsap.from('.hero .revela', { y: 40, opacity: 0.15, filter: 'blur(8px)', duration: 1.1, ease: 'power3.out', stagger: 0.09 });
   gsap.from('#fone-hero', { y: 120, rotate: -12, opacity: 0.2, duration: 1.4, ease: 'power3.out', delay: 0.2 });
   gsap.from('.hero .selo', { scale: 0.6, opacity: 0.2, duration: 0.9, ease: 'back.out(1.6)', delay: 0.9, stagger: 0.15 });
-  // celular do hero inclina com o mouse
   const fh = $('#fone-hero'), palco = $('.hero .palco-fone');
-  palco.parentElement.addEventListener('pointermove', (e) => { const r = palco.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-    gsap.to(fh, { rotateY: x * 10, rotateX: -y * 8, rotate: -4 + x * 2, duration: 0.8, ease: 'power2.out' }); });
-  gsap.to('#fone-hero', { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.set(fh, { rotateX: 24, rotateY: -10, rotateZ: 16 });
+  hero.addEventListener('pointermove', (e) => { const r = palco.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    gsap.to(fh, { rotateY: -10 + x * 12, rotateX: 24 - y * 10, duration: 0.9, ease: 'power2.out' }); });
+  // ao rolar, o celular se endireita e sobe, como se entrasse no app
+  gsap.to(palco, { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.from('.hero .mascote', { scale: 0, rotate: -30, duration: 1, ease: 'back.out(1.8)', delay: 1.1, stagger: 0.2 });
 
-  // textos revelados ao rolar (partem visíveis, só ganham movimento)
+  // cartas: começam empilhadas e abrem em leque
+  mm0.add('(min-width: 981px)', () => { const cs = $$('#cartas .carta'), n = cs.length;
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#cartas', start: 'top 90%', end: 'top 35%', scrub: 0.6 } });
+    cs.forEach((c, k) => { const m = k - (n - 1) / 2; tl.fromTo(c, { x: -m * 200, y: 60, rotate: m * 3, scale: 0.92 }, { x: 0, y: Math.abs(m) * 26, rotate: m * 7, scale: 1, ease: 'power2.out' }, 0); });
+    return () => tl.scrollTrigger && tl.scrollTrigger.kill(); });
+
+  // o anel do logo surge, gira e cresce devagar ao fundo
+  $$('[data-gira]').forEach((el) => gsap.fromTo(el, { rotate: -25, scale: 0.8, yPercent: 8 }, { rotate: 35, scale: 1.08, yPercent: -8, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
+
   $$('main section:not(.hero) .revela').forEach((el) => gsap.from(el, { y: 36, opacity: 0.25, filter: 'blur(6px)', duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
 
-  // números que contam
   $$('[data-conta]').forEach((el) => { const fim = +el.dataset.conta, suf = el.dataset.sufixo || '', pre = el.dataset.prefixo || ''; const o = { v: 0 };
     ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => gsap.to(o, { v: fim, duration: 1.6, ease: 'power2.out', onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; } }) }); });
 
-  // a semana se acende hora a hora
   ScrollTrigger.create({ trigger: '#semana', start: 'top 75%', end: 'bottom 25%', scrub: true, onUpdate: (s) => { const n = Math.round(s.progress * celulas.length); celulas.forEach((c, k) => c.classList.toggle('acesa', k < n)); } });
 
-  // linha do tempo se preenche
   gsap.fromTo('#progresso', { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '#linha-tempo', start: 'top 85%', end: 'top 45%', scrub: true } });
-
-  // celular do profissional sobe com leve rotação
   gsap.from('#fone-prof', { y: 140, rotate: 6, ease: 'none', scrollTrigger: { trigger: '#profissionais', start: 'top bottom', end: 'center center', scrub: true } });
 
-  // história fixa: só em telas largas
   const mm = gsap.matchMedia();
   mm.add('(min-width: 981px)', () => {
     const st = ScrollTrigger.create({ trigger: '#como', start: 'top top', end: '+=2600', pin: '#palco-como', scrub: true,
       onUpdate: (s) => { const p = s.progress * 4, i = Math.min(3, Math.floor(p)), frac = p - i; vaiPara(i);
-        // mergulho: o celular aproxima dentro de cada passo e volta ao trocar de tela
         gsap.set('#fone-como', { scale: 1 + 0.07 * Math.sin(Math.min(1, frac) * Math.PI), rotate: -2 + i * 1.3 }); } });
     return () => st.kill();
   });
