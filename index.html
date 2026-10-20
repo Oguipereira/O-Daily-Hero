@@ -125,17 +125,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .calc .resultado strong { display: block; font: 800 clamp(40px, 4.6vw, 62px)/1 var(--display); letter-spacing: -0.04em; color: var(--sol); font-variant-numeric: tabular-nums; }
 .calc .resultado span { font-size: 15px; color: var(--sobre-azul); }
 
-.como .palco { max-width: var(--max); margin: 0 auto; min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-block: 88px 40px; position: relative; z-index: 1; }
+.como .palco { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; padding-block: clamp(80px, 10vw, 140px); position: relative; z-index: 1; }
 .como h2 { font-size: clamp(40px, 4.4vw, 66px); margin: 16px 0 28px; }
 .passos { list-style: none; margin: 0; padding: 0; display: grid; }
-.passos li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 14px; padding: 16px 0; border-top: 1.5px solid var(--linha); transition: border-color .5s; cursor: default; }
+.passos li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 14px; padding: 16px 0; min-height: 34vh; align-content: center; border-top: 1.5px solid var(--linha); transition: border-color .5s; cursor: default; }
 .passos li .num { font: 800 34px/1 var(--display); color: #C3C7E4; transition: color .5s; }
 .passos li h3 { font: 700 clamp(24px, 2.5vw, 34px)/1.1 var(--display); letter-spacing: -0.025em; margin: 2px 0 0; color: #A9ADCB; transition: color .5s; }
 .passos li p { grid-column: 2; margin: 0; font-size: 15px; color: #B1B4CE; max-width: 30em; transition: color .5s; }
 .passos li.ativo { border-color: var(--azul); }
 .passos li.ativo .num { color: var(--azul); } .passos li.ativo h3 { color: var(--tinta); } .passos li.ativo p { color: var(--cinza); }
 .passos li .mini { display: none; }
-.como .lado-fone { position: relative; display: grid; place-items: center; }
+.como .lado-fone { position: sticky; top: calc(50vh - 330px); display: grid; place-items: center; }
+.como .fone { transition: transform .8s var(--ease); }
 .como .fone .tela img { opacity: 0; transform: scale(1.08); }
 .como .fone .tela img.ativa { opacity: 1; transform: scale(1); }
 .como .fone .tela img.saiu { opacity: 0; transform: scale(1.35); }
@@ -251,7 +252,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .carta { margin: 0; height: 270px; rotate: 0deg !important; }
   .carta:last-child { grid-column: span 2; }
   .hero .mascote.m1 { left: -2%; width: 120px; } .hero .mascote.m2 { right: 0; width: 90px; }
-  .como .palco { min-height: 0; padding-block: 80px; }
+  .como .palco { padding-block: 80px; }
+  .passos li { min-height: 0; }
   .como .lado-fone { display: none; }
   .passos li .num { color: var(--azul); } .passos li h3 { color: var(--tinta); } .passos li p { color: var(--cinza); }
   .passos li .mini { display: block; grid-column: 1 / -1; width: min(260px, 70vw); margin: 18px auto 0; border-radius: 30px; box-shadow: 0 0 0 8px #0E0C2B, 0 30px 60px -20px rgba(10,8,60,.4); }
@@ -602,12 +604,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   gsap.fromTo('#progresso', { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '#linha-tempo', start: 'top 85%', end: 'top 45%', scrub: true } });
   gsap.from('#fone-prof', { y: 140, rotate: 6, ease: 'none', scrollTrigger: { trigger: '#profissionais', start: 'top bottom', end: 'center center', scrub: true } });
 
+  // passos: a página rola normalmente; o celular acompanha ao lado e troca de tela quando cada passo chega ao meio
   const mm = gsap.matchMedia();
   mm.add('(min-width: 981px)', () => {
-    const st = ScrollTrigger.create({ trigger: '#como', start: 'top top', end: '+=2600', pin: '#palco-como', scrub: true,
-      onUpdate: (s) => { const p = s.progress * 4, i = Math.min(3, Math.floor(p)), frac = p - i; vaiPara(i);
-        gsap.set('#fone-como', { scale: 1 + 0.07 * Math.sin(Math.min(1, frac) * Math.PI), rotate: -2 + i * 1.3 }); } });
-    return () => st.kill();
+    const sts = passos.map((li, i) => ScrollTrigger.create({ trigger: li, start: 'top 55%', end: 'bottom 55%',
+      onToggle: (s) => { if (s.isActive) { vaiPara(i); gsap.to('#fone-como', { rotate: -2 + i * 1.3, duration: 0.8, ease: 'power2.out' }); } } }));
+    return () => sts.forEach((s) => s.kill());
   });
   mm.add('(max-width: 980px)', () => { passos.forEach((p) => p.classList.add('ativo')); return () => passos.forEach((p, k) => p.classList.toggle('ativo', k === atual)); });
 })();
