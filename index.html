@@ -235,7 +235,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .perfil label:has(input:focus-visible) { outline: 3px solid var(--azul); outline-offset: 3px; }
 .form .botao { justify-self: start; margin-top: 6px; }
 .form .lgpd { font-size: 13px; color: var(--cinza-claro); margin: 0; }
-.sucesso strong { display: block; font: 700 30px/1.1 var(--display); margin-bottom: 8px; }
+.aviso { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; pointer-events: none; }
+.aviso { background: rgba(20,18,58,0); transition: background .45s var(--ease); }
+.aviso.mostra { background: rgba(20,18,58,.35); }
+.aviso .caixa { width: min(440px, 100%); background: #fff; color: var(--tinta); border-radius: 28px; padding: 36px 32px 30px; text-align: center; box-shadow: 0 40px 100px -20px rgba(8,6,50,.5), 0 0 0 1px var(--linha); opacity: 0; transform: translateY(16px) scale(.94); transition: opacity .45s var(--ease), transform .45s var(--ease); }
+.aviso.mostra .caixa { opacity: 1; transform: none; }
+.aviso .check { width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 50%; background: var(--lima); display: grid; place-items: center; }
+.aviso .check svg { width: 30px; height: 30px; }
+.aviso strong { display: block; font: 800 28px/1.1 var(--display); letter-spacing: -0.02em; margin-bottom: 8px; }
+.aviso p { margin: 0; color: var(--cinza); font-size: 16px; }
+.aviso .barra { height: 4px; border-radius: 4px; background: var(--bloco); margin-top: 22px; overflow: hidden; }
+.aviso .barra i { display: block; height: 100%; background: var(--azul); transform-origin: left; }
+.aviso.mostra .barra i { animation: esvazia 4.5s linear forwards; }
+@keyframes esvazia { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 .rodape-site { position: relative; z-index: 1; }
 .rodape-site .miolo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-block: 36px 48px; border-top: 1px solid rgba(255,255,255,.2); font-size: 14px; color: var(--sobre-azul); }
 .rodape-site .marca { color: #fff; font-size: 22px; }
@@ -302,6 +314,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   </div>
 </header>
 
+<div class="aviso" id="beta-ok" role="status" aria-live="polite" hidden><div class="caixa">
+  <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#14123A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <strong>Interesse registrado!</strong>
+  <p>Entraremos em contato pelo e-mail e WhatsApp informados assim que o beta abrir. Obrigado por acreditar no Daily Hero.</p>
+  <div class="barra" aria-hidden="true"><i></i></div>
+</div></div>
 <main id="inicio">
   <section class="hero azul faixa">
     <div class="marca-dagua" data-gira aria-hidden="true"><svg fill="currentColor"><use href="#anel"/></svg></div>
@@ -508,7 +526,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <p class="lgpd">Seus dados não são compartilhados com terceiros, conforme a LGPD (Lei nº 13.709/2018).</p>
       </form>
       </div>
-      <div class="form sucesso" id="beta-ok" hidden><strong>Interesse registrado!</strong><p>Entraremos em contato pelo e-mail e WhatsApp informados assim que o beta abrir. Obrigado por acreditar no Daily Hero.</p></div>
     </div>
     <footer class="rodape-site">
       <div class="miolo">
@@ -555,8 +572,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     if (!f.checkValidity()) { erro.textContent = 'Preencha nome, um e-mail válido e o WhatsApp com DDD.'; erro.hidden = false; return; }
     erro.hidden = true; const btn = $('#beta-enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
     const dados = { nome: $('#beta-nome').value, email: $('#beta-email').value, whatsapp: $('#beta-whatsapp').value, perfil: f.perfil.value };
-    try { await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) }); } catch (err) { /* no-cors */ }
-    f.hidden = true; $('#beta-ok').hidden = false;
+    try { await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) }); }
+    catch (err) { btn.disabled = false; btn.innerHTML = 'Enviar <span class="seta" aria-hidden="true">→</span>'; erro.textContent = 'Não foi possível enviar agora. Verifique sua conexão e tente de novo.'; erro.hidden = false; return; }
+    // aviso centralizado e temporário; o formulário volta limpo
+    f.reset(); btn.disabled = false; btn.innerHTML = 'Enviar <span class="seta" aria-hidden="true">→</span>';
+    const aviso = $('#beta-ok'); aviso.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => aviso.classList.add('mostra')));
+    setTimeout(() => { aviso.classList.remove('mostra'); setTimeout(() => { aviso.hidden = true; }, 500); }, 4500);
   });
 
   const passos = $$('#passos li'), telas = $$('#fone-como .tela img');
